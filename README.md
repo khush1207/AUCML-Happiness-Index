@@ -358,3 +358,7 @@ src/
 - **Employee & Department Names:** The underlying dataset provides anonymized numeric `employeeId` and alphanumeric `departmentId`. No personal names or plain-text department labels are fabricated; real IDs are used throughout.
 - **Identity/Role Information:** No authenticated user profile or personal identity exists in the dataset; a neutral workspace label (`AUCML HR Analytics Workspace`) is displayed rather than inventing a signed-in user.
 
+
+## Data
+The dataset is not included in this repository.
+Place the file at data/processed/combined_employee_engagement.csv before running the app.
