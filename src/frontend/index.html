@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AUCML — Employee Happiness Intelligence System</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="app-body">
+  <!-- Application Layout -->
+  <div class="app-layout">
+    
+    <!-- Left Navigation Sidebar -->
+    <aside class="app-sidebar" aria-label="Main Navigation">
+      <div class="sidebar-brand">
+        <div class="brand-badge">AUCML</div>
+        <div class="brand-text">
+          <span class="brand-title">AUCML HR</span>
+          <span class="brand-subtitle">Happiness Intelligence</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button type="button" class="nav-item active" data-page="overview" id="nav-overview">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+          </svg>
+          <span class="nav-label">Overview</span>
+        </button>
+
+        <button type="button" class="nav-item" data-page="employees" id="nav-employees">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+          </svg>
+          <span class="nav-label">Employees</span>
+          <span class="nav-counter" id="sidebar-employee-count">—</span>
+        </button>
+
+        <button type="button" class="nav-item" data-page="insights" id="nav-insights">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+          </svg>
+          <span class="nav-label">Insights</span>
+        </button>
+
+        <button type="button" class="nav-item" data-page="settings" id="nav-settings">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+          </svg>
+          <span class="nav-label">Settings</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Footer (Workspace identity without fake user) -->
+      <div class="sidebar-footer">
+        <div class="workspace-card">
+          <div class="workspace-label">HR Analytics Workspace</div>
+          <div class="workspace-sub">AUCML Intelligence Engine</div>
+          <div class="workspace-cutoff">
+            <span class="cutoff-item">Data: <strong id="sidebar-latest-date">—</strong></span>
+            <span class="cutoff-item">Pred: <strong id="sidebar-pred-date">—</strong></span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+      
+      <!-- Top Application Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <h1 class="page-title" id="page-title">Overview</h1>
+          <p class="page-subtitle" id="page-subtitle">Workforce happiness distribution, KPI summary, and high-priority alerts.</p>
+        </div>
+
+        <div class="header-right">
+          <!-- Company Selector -->
+          <div class="company-selector-wrapper">
+            <label for="company-select" class="selector-label">Company</label>
+            <div class="selector-input-container">
+              <select id="company-select" class="company-select" aria-label="Select Company">
+                <option value="">Loading companies...</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Attention Indicator Badge -->
+          <div class="attention-badge" id="header-attention-badge" title="Active employees requiring HR follow-up">
+            <span class="badge-dot"></span>
+            <span class="badge-text"><strong id="header-attention-count">0</strong> Attention Required</span>
+          </div>
+
+          <!-- Refresh Action Button -->
+          <button type="button" class="btn btn-secondary btn-refresh" id="btn-refresh" title="Refresh dataset snapshot and recompute predictions">
+            <svg class="refresh-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+            </svg>
+            <span class="btn-text">Refresh</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Global Reference Banner -->
+      <div class="reference-banner">
+        <div class="banner-item">
+          <span class="banner-label">Latest Dataset Date:</span>
+          <span class="banner-value" id="banner-latest-date">—</span>
+          <span class="banner-hint">(source data cutoff)</span>
+        </div>
+        <div class="banner-sep">·</div>
+        <div class="banner-item">
+          <span class="banner-label">Prediction Date:</span>
+          <span class="banner-value accent-text" id="banner-pred-date">—</span>
+          <span class="banner-hint">(exactly +1 calendar day)</span>
+        </div>
+        <div class="banner-sep">·</div>
+        <div class="banner-item">
+          <span class="banner-label">6-Month Cutoff:</span>
+          <span class="banner-value" id="banner-cutoff-date">—</span>
+          <span class="banner-hint">(inactivity audit rule)</span>
+        </div>
+        <div class="banner-sep">·</div>
+        <div class="banner-item" id="banner-company-info">
+          <span class="banner-label">Industry:</span>
+          <span class="banner-value" id="banner-industry">—</span>
+          <span class="banner-label" style="margin-left: 8px;">Timezone:</span>
+          <span class="banner-value" id="banner-timezone">—</span>
+        </div>
+      </div>
+
+      <!-- PAGE 1: OVERVIEW -->
+      <section class="page-view active" id="view-overview">
+        <!-- KPI Cards Grid -->
+        <div class="kpi-grid">
+          
+          <!-- KPI 1: Total Active Employees -->
+          <div class="kpi-card" data-tooltip="Employees with confirmed active status (deleted == False). Confirmed former employees are excluded.">
+            <div class="kpi-header">
+              <span class="kpi-title">Total Active Employees</span>
+              <span class="kpi-badge badge-neutral">Active Population</span>
+            </div>
+            <div class="kpi-body">
+              <span class="kpi-value" id="kpi-active-employees">—</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-sub" id="kpi-former-employees">Former / Inactive: —</span>
+            </div>
+          </div>
+
+          <!-- KPI 2: Average Current HI -->
+          <div class="kpi-card" data-tooltip="Mean Happiness Index across active workforce with recorded HI votes (scale 1 to 4).">
+            <div class="kpi-header">
+              <span class="kpi-title">Average Current HI</span>
+              <span class="kpi-badge badge-accent">Scale 1–4</span>
+            </div>
+            <div class="kpi-body">
+              <span class="kpi-value" id="kpi-average-hi">—</span>
+              <span class="kpi-scale">/ 4.0</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-sub" id="kpi-hi-quality">Workforce Baseline</span>
+            </div>
+          </div>
+
+          <!-- KPI 3: Employees Requiring Attention -->
+          <div class="kpi-card kpi-warning" data-tooltip="Active employees meeting at least one attention criterion: low predicted HI, overdue feedback, or potential inactivity.">
+            <div class="kpi-header">
+              <span class="kpi-title">Requiring Attention</span>
+              <span class="kpi-badge badge-warning" id="kpi-attention-percent">—% of active</span>
+            </div>
+            <div class="kpi-body">
+              <span class="kpi-value text-warning" id="kpi-attention-count">—</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-sub">Priority follow-up list</span>
+            </div>
+          </div>
+
+          <!-- KPI 4: Low HI Employees -->
+          <div class="kpi-card kpi-danger" data-tooltip="Active employees whose predicted next HI level is in the low range (HI 1 or HI 2).">
+            <div class="kpi-header">
+              <span class="kpi-title">Low Predicted HI</span>
+              <span class="kpi-badge badge-danger">HI ≤ 2</span>
+            </div>
+            <div class="kpi-body">
+              <span class="kpi-value text-danger" id="kpi-low-hi-count">—</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-sub">Critical / At-Risk Forecast</span>
+            </div>
+          </div>
+
+          <!-- KPI 5: Feedback Overdue -->
+          <div class="kpi-card" data-tooltip="Active employees with confirmed feedback submission older than the configured threshold (default 30 days). Unknown feedback dates are unverified.">
+            <div class="kpi-header">
+              <span class="kpi-title">Feedback Overdue</span>
+              <span class="kpi-badge badge-warning" id="kpi-overdue-threshold">&gt; 30 days</span>
+            </div>
+            <div class="kpi-body">
+              <span class="kpi-value" id="kpi-overdue-count">—</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-sub">Requires survey touchpoint</span>
+            </div>
+          </div>
+
+          <!-- KPI 6: Potentially Inactive / 6-Month Stale -->
+          <div class="kpi-card" data-tooltip="Active employees with last confirmed feedback > 6 calendar months before dataset cutoff date. Flagged for employment-status audit without assuming termination.">
+            <div class="kpi-header">
+              <span class="kpi-title">Potentially Inactive</span>
+              <span class="kpi-badge badge-neutral">Audit Review</span>
+            </div>
+            <div class="kpi-body">
+              <span class="kpi-value" id="kpi-inactive-count">—</span>
+            </div>
+            <div class="kpi-footer">
+              <span class="kpi-sub">&gt; 6 Calendar Months Stale</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+          
+          <!-- Happiness Distribution Card -->
+          <div class="card chart-card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Happiness Distribution</h3>
+                <p class="card-subtitle">Active workforce breakdown by HI score level (Current vs Predicted)</p>
+              </div>
+              <div class="distribution-toggle">
+                <button type="button" class="btn-toggle active" id="btn-dist-current" data-mode="current">Current HI</button>
+                <button type="button" class="btn-toggle" id="btn-dist-predicted" data-mode="predicted">Predicted HI</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="distribution-container" id="distribution-bars">
+                <!-- Injected via JavaScript -->
+              </div>
+              <div class="distribution-legend">
+                <div class="legend-item"><span class="legend-dot hi-1-bg"></span> HI 1: Very Low (Critical)</div>
+                <div class="legend-item"><span class="legend-dot hi-2-bg"></span> HI 2: Low (At Risk)</div>
+                <div class="legend-item"><span class="legend-dot hi-3-bg"></span> HI 3: Moderate (Satisfied)</div>
+                <div class="legend-item"><span class="legend-dot hi-4-bg"></span> HI 4: High (Thriving)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Historical Happiness Trend Card -->
+          <div class="card chart-card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Historical Happiness Trend</h3>
+                <p class="card-subtitle">Monthly observed mean HI and model prediction for next observation date</p>
+              </div>
+              <div class="trend-legend">
+                <span class="legend-item"><span class="legend-line solid-line"></span> Observed History</span>
+                <span class="legend-item"><span class="legend-line dashed-line"></span> Model Prediction</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="trend-chart-wrapper" id="trend-chart-container">
+                <!-- SVG Chart Injected via JavaScript -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- High Attention Priority Section -->
+        <div class="card table-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">High Attention Priorities</h3>
+              <p class="card-subtitle">Active employees requiring immediate HR follow-up based on predicted low HI or stale survey feedback</p>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-view-all-attention">
+              View All in Directory &rarr;
+            </button>
+          </div>
+          <div class="card-body no-padding">
+            <div class="table-responsive">
+              <table class="data-table" id="table-overview-attention">
+                <thead>
+                  <tr>
+                    <th>Employee ID</th>
+                    <th>Current HI</th>
+                    <th>Predicted HI</th>
+                    <th>Last Confirmed Feedback</th>
+                    <th>Feedback Age</th>
+                    <th>Attention Reason</th>
+                    <th>Status</th>
+                    <th class="text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-overview-attention">
+                  <tr><td colspan="8" class="text-center py-4">Loading attention priorities...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- PAGE 2: EMPLOYEES DIRECTORY -->
+      <section class="page-view" id="view-employees">
+        
+        <!-- Filter Toolbar -->
+        <div class="filter-toolbar card">
+          <div class="filter-grid">
+            
+            <!-- Search -->
+            <div class="filter-group filter-search">
+              <label for="emp-search" class="filter-label">Search Employee ID</label>
+              <div class="input-with-icon">
+                <svg class="input-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                </svg>
+                <input type="text" id="emp-search" class="form-input" placeholder="e.g. 106, 215..." />
+              </div>
+            </div>
+
+            <!-- Employment Status Filter -->
+            <div class="filter-group">
+              <label for="filter-status" class="filter-label">Employment Status</label>
+              <select id="filter-status" class="form-select">
+                <option value="all">All Statuses</option>
+                <option value="active" selected>Active Employees</option>
+                <option value="potentially_inactive">Potentially Inactive (Stale)</option>
+                <option value="former">Confirmed Former</option>
+                <option value="unknown">Status Unknown</option>
+              </select>
+            </div>
+
+            <!-- HI / Risk Category Filter -->
+            <div class="filter-group">
+              <label for="filter-risk" class="filter-label">HI / Risk Level</label>
+              <select id="filter-risk" class="form-select">
+                <option value="all">All HI Levels</option>
+                <option value="low">Low / Critical (HI 1–2)</option>
+                <option value="moderate">Moderate (HI 3)</option>
+                <option value="high">High / Thriving (HI 4)</option>
+              </select>
+            </div>
+
+            <!-- Attention Status Filter -->
+            <div class="filter-group">
+              <label for="filter-attention" class="filter-label">Attention Status</label>
+              <select id="filter-attention" class="form-select">
+                <option value="all">All Attention States</option>
+                <option value="needs_attention">Needs Attention Only</option>
+                <option value="normal">Normal / On Track</option>
+              </select>
+            </div>
+
+            <!-- Feedback Status Filter -->
+            <div class="filter-group">
+              <label for="filter-feedback" class="filter-label">Feedback Status</label>
+              <select id="filter-feedback" class="form-select">
+                <option value="all">All Feedback States</option>
+                <option value="confirmed">Has Confirmed Feedback</option>
+                <option value="unverified">No Confirmed Date (Unverified)</option>
+                <option value="overdue">Feedback Overdue (&gt; 30d)</option>
+                <option value="stale">Stale (&gt; 6 Calendar Mos)</option>
+              </select>
+            </div>
+
+            <!-- Reset Button -->
+            <div class="filter-group filter-actions">
+              <label class="filter-label">&nbsp;</label>
+              <button type="button" class="btn btn-secondary" id="btn-reset-filters">Reset Filters</button>
+            </div>
+
+          </div>
+
+          <!-- Active Filter Context Bar -->
+          <div class="filter-context-bar">
+            <div class="filter-counts">
+              Showing <strong id="filter-result-count">0</strong> of <strong id="filter-total-count">0</strong> employees
+            </div>
+            <div class="filter-tags" id="active-filter-tags">
+              <!-- Injected dynamically -->
+            </div>
+            <div class="filter-extras">
+              <label for="select-page-size" class="text-muted">Per page:</label>
+              <select id="select-page-size" class="form-select-sm">
+                <option value="15">15</option>
+                <option value="25" selected>25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-export-csv" title="Export current filtered table to CSV">
+                Export CSV
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Directory Table Card -->
+        <div class="card table-card">
+          <div class="card-body no-padding">
+            <div class="table-responsive">
+              <table class="data-table" id="table-employees">
+                <thead>
+                  <tr>
+                    <th class="sortable" data-sort="employee_id">
+                      Employee ID <span class="sort-icon">&updownarrow;</span>
+                    </th>
+                    <th class="sortable" data-sort="current_hi">
+                      Current HI <span class="sort-icon">&updownarrow;</span>
+                    </th>
+                    <th class="sortable" data-sort="predicted_hi">
+                      Predicted HI <span class="sort-icon">&updownarrow;</span>
+                    </th>
+                    <th class="sortable" data-sort="prediction_date">
+                      Prediction Date <span class="sort-icon">&updownarrow;</span>
+                    </th>
+                    <th class="sortable" data-sort="last_feedback_date">
+                      Last Feedback <span class="sort-icon">&updownarrow;</span>
+                    </th>
+                    <th class="sortable" data-sort="feedback_age">
+                      Feedback Age <span class="sort-icon">&updownarrow;</span>
+                    </th>
+                    <th class="sortable" data-sort="employment_status">
+                      Employment Status <span class="sort-icon">&updownarrow;</span>
+                    </th>
+                    <th class="sortable" data-sort="attention_priority">
+                      Attention Status <span class="sort-icon">&updownarrow;</span>
+                    </th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-employees">
+                  <tr><td colspan="9" class="text-center py-4">Loading employee directory...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Pagination Bar -->
+          <div class="pagination-bar" id="pagination-controls">
+            <div class="pagination-info" id="pagination-info">Page 1 of 1</div>
+            <div class="pagination-buttons">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-prev-page" disabled>&larr; Previous</button>
+              <div class="pagination-pages" id="pagination-pages"></div>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-next-page" disabled>Next &rarr;</button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- PAGE 3: INSIGHTS -->
+      <section class="page-view" id="view-insights">
+        
+        <div class="insights-summary-grid">
+          
+          <!-- Attention Reason Breakdown -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Risk & Attention Breakdown</h3>
+                <p class="card-subtitle">Distribution of primary drivers for active workforce attention alerts</p>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="reason-metrics" id="insights-reason-breakdown">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Feedback Staleness Analysis -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Survey Feedback Freshness</h3>
+                <p class="card-subtitle">Active employees grouped by calendar duration since last confirmed score submission</p>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="staleness-breakdown" id="insights-staleness-bars">
+                <!-- Injected via JavaScript -->
+              </div>
+              <div class="help-box mt-3">
+                <svg class="help-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+                <span>Per company policy, Score survey responses older than 30 days are not used as current context in model predictions. Employees exceeding 6 calendar months are flagged for employment audit.</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Potentially Inactive Audit Review Table -->
+        <div class="card table-card mt-4">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Potentially Inactive Employees — HR Audit Review</h3>
+              <p class="card-subtitle">Active employees with last confirmed feedback more than 6 calendar months before dataset cutoff date (<span id="insights-cutoff-label">—</span>). Stale feedback does not establish termination.</p>
+            </div>
+            <span class="badge badge-warning" id="insights-stale-badge">0 flagged for review</span>
+          </div>
+          <div class="card-body no-padding">
+            <div class="table-responsive">
+              <table class="data-table" id="table-stale-review">
+                <thead>
+                  <tr>
+                    <th>Employee ID</th>
+                    <th>Last Confirmed Feedback</th>
+                    <th>Feedback Age</th>
+                    <th>Latest Data Date</th>
+                    <th>Current HI</th>
+                    <th>Predicted HI</th>
+                    <th class="text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-stale-review">
+                  <tr><td colspan="7" class="text-center py-4">No records require inactivity review.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cross-Company Benchmark Table -->
+        <div class="card table-card mt-4">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Cross-Company Happiness & Engagement Benchmark</h3>
+              <p class="card-subtitle">Comparative workforce metrics across companies in the Happyforce dataset</p>
+            </div>
+          </div>
+          <div class="card-body no-padding">
+            <div class="table-responsive">
+              <table class="data-table" id="table-company-benchmark">
+                <thead>
+                  <tr>
+                    <th>Company</th>
+                    <th>Industry</th>
+                    <th>Timezone</th>
+                    <th>Active Workforce</th>
+                    <th>Average HI</th>
+                    <th>Attention Required</th>
+                    <th>Attention %</th>
+                    <th class="text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-company-benchmark">
+                  <tr><td colspan="8" class="text-center py-4">Loading benchmark...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- PAGE 4: SETTINGS -->
+      <section class="page-view" id="view-settings">
+        
+        <div class="settings-container">
+          
+          <!-- Thresholds & Parameters Card -->
+          <div class="card settings-card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Configurable Attention Thresholds</h3>
+                <p class="card-subtitle">Adjust risk rules and audit thresholds. Changes re-evaluate metrics across all pages in real-time.</p>
+              </div>
+            </div>
+            <div class="card-body">
+              <form id="settings-form" class="settings-form">
+                
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="setting-low-hi" class="form-label">
+                      Low HI Risk Threshold
+                      <span class="form-desc">Defines which predicted scores trigger a low happiness warning.</span>
+                    </label>
+                    <select id="setting-low-hi" class="form-select">
+                      <option value="1">HI ≤ 1 (Critical Only: HI 1)</option>
+                      <option value="2" selected>HI ≤ 2 (Low & Critical: HI 1 & HI 2 — Recommended)</option>
+                      <option value="3">HI ≤ 3 (Moderate, Low & Critical)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="setting-feedback-overdue" class="form-label">
+                      Feedback Overdue Threshold (Days)
+                      <span class="form-desc">Active employees whose last confirmed survey feedback is older than this trigger overdue status.</span>
+                    </label>
+                    <select id="setting-feedback-overdue" class="form-select">
+                      <option value="14">14 Calendar Days</option>
+                      <option value="30" selected>30 Calendar Days (Default)</option>
+                      <option value="45">45 Calendar Days</option>
+                      <option value="60">60 Calendar Days</option>
+                      <option value="90">90 Calendar Days</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="setting-inactivity-months" class="form-label">
+                      Inactivity Audit Cutoff (Calendar Months)
+                      <span class="form-desc">Employees with confirmed feedback older than this calendar period are flagged for HR verification.</span>
+                    </label>
+                    <select id="setting-inactivity-months" class="form-select">
+                      <option value="3">3 Calendar Months</option>
+                      <option value="6" selected>6 Calendar Months (Business Standard)</option>
+                      <option value="9">9 Calendar Months</option>
+                      <option value="12">12 Calendar Months</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="setting-date-format" class="form-label">
+                      Date Display Preference
+                      <span class="form-desc">Format applied to all timestamps and date columns.</span>
+                    </label>
+                    <select id="setting-date-format" class="form-select">
+                      <option value="DD Mon YYYY" selected>11 Aug 2021 (Default enterprise format)</option>
+                      <option value="YYYY-MM-DD">2021-08-11 (ISO standard)</option>
+                      <option value="MM/DD/YYYY">08/11/2021 (US format)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="settings-alert alert-info">
+                  <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                  </svg>
+                  <div>
+                    <strong>Session Preference Notice:</strong>
+                    These settings are active during your current session and instantly re-evaluate KPI counts, alerts, and directory filters across all views.
+                  </div>
+                </div>
+
+                <div class="settings-actions">
+                  <button type="button" class="btn btn-primary" id="btn-save-settings">Apply Settings & Recalculate</button>
+                  <button type="button" class="btn btn-secondary" id="btn-reset-settings">Reset to Defaults</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+
+          <!-- HI Scale Reference Card -->
+          <div class="card settings-card mt-4">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Happiness Index (HI) Reference Architecture</h3>
+                <p class="card-subtitle">Standard four-tier engagement scale and model interpretation guidelines</p>
+              </div>
+            </div>
+            <div class="card-body no-padding">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Score Level</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Recommended HR Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="badge hi-1-badge">HI 1</span></td>
+                    <td><strong>Critical / Very Low</strong></td>
+                    <td>Employee reports persistent dissatisfaction or severe engagement risk.</td>
+                    <td>Immediate 1-on-1 check-in by people manager or HR business partner.</td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge hi-2-badge">HI 2</span></td>
+                    <td><strong>Low / At Risk</strong></td>
+                    <td>Moderate dissatisfaction; lowest classification recall in model baseline.</td>
+                    <td>Review workload, managerial support, and recent workplace scores.</td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge hi-3-badge">HI 3</span></td>
+                    <td><strong>Moderate / Satisfied</strong></td>
+                    <td>Stable engagement baseline representing the majority of observations.</td>
+                    <td>Maintain regular feedback cycles and recognize recent contributions.</td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge hi-4-badge">HI 4</span></td>
+                    <td><strong>High / Thriving</strong></td>
+                    <td>Exceptional morale, strong team connection, and high motivation.</td>
+                    <td>Leverage as team culture champions; retain positive engagement drivers.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Employee Detail Modal / Drawer -->
+  <div class="modal-backdrop" id="employee-detail-modal" aria-hidden="true">
+    <div class="modal-drawer" role="dialog" aria-labelledby="modal-employee-title" aria-modal="true">
+      
+      <!-- Drawer Header -->
+      <div class="drawer-header">
+        <div>
+          <div class="drawer-pretitle" id="modal-company-title">Company —</div>
+          <h2 class="drawer-title" id="modal-employee-title">Employee ID: —</h2>
+        </div>
+        <div class="drawer-header-actions">
+          <span class="badge" id="modal-status-badge">—</span>
+          <button type="button" class="btn-close" id="btn-close-modal" aria-label="Close details">&times;</button>
+        </div>
+      </div>
+
+      <!-- Drawer Body -->
+      <div class="drawer-body" id="modal-drawer-content">
+        
+        <!-- Key Metrics Cards -->
+        <div class="drawer-metrics-grid">
+          
+          <div class="drawer-metric-card">
+            <span class="metric-label">Current HI</span>
+            <div class="metric-value-wrap">
+              <span class="metric-val" id="modal-current-hi">—</span>
+              <span class="metric-badge" id="modal-current-hi-badge">—</span>
+            </div>
+          </div>
+
+          <div class="drawer-metric-card">
+            <span class="metric-label">Predicted Next HI</span>
+            <div class="metric-value-wrap">
+              <span class="metric-val text-accent" id="modal-predicted-hi">—</span>
+              <span class="metric-badge" id="modal-predicted-hi-badge">—</span>
+            </div>
+          </div>
+
+          <div class="drawer-metric-card">
+            <span class="metric-label">Prediction Date</span>
+            <span class="metric-val-sm" id="modal-prediction-date">—</span>
+            <span class="metric-sub">Cutoff +1 day</span>
+          </div>
+
+          <div class="drawer-metric-card">
+            <span class="metric-label">Employee Latest Record</span>
+            <span class="metric-val-sm" id="modal-latest-employee-date">—</span>
+            <span class="metric-sub">Last activity in data</span>
+          </div>
+
+          <div class="drawer-metric-card">
+            <span class="metric-label">Last Confirmed Feedback</span>
+            <span class="metric-val-sm" id="modal-last-feedback-date">—</span>
+            <span class="metric-sub" id="modal-feedback-age-label">—</span>
+          </div>
+
+          <div class="drawer-metric-card">
+            <span class="metric-label">Tenure</span>
+            <span class="metric-val-sm" id="modal-tenure">—</span>
+            <span class="metric-sub">Hiring date baseline</span>
+          </div>
+
+        </div>
+
+        <!-- Attention Banner (if attention needed) -->
+        <div class="drawer-alert alert-warning" id="modal-attention-alert" style="display: none;">
+          <div class="alert-heading">
+            <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+            <strong>Attention Required:</strong>
+          </div>
+          <div class="alert-body" id="modal-attention-reasons"></div>
+        </div>
+
+        <!-- Class Prediction Probabilities -->
+        <div class="drawer-section">
+          <h4 class="section-title">Model Class Probabilities (Tuned XGBoost)</h4>
+          <div class="probability-bars" id="modal-prob-bars">
+            <!-- Injected via JavaScript -->
+          </div>
+        </div>
+
+        <!-- Explainability with SHAP -->
+        <div class="drawer-section">
+          <div class="section-header-flex">
+            <div>
+              <h4 class="section-title">Why did the model make this prediction? (SHAP Feature Attribution)</h4>
+              <p class="section-desc">Local TreeExplainer contributions pushing toward or away from the predicted class</p>
+            </div>
+          </div>
+          
+          <div class="shap-container" id="modal-shap-features">
+            <!-- Injected via JavaScript -->
+          </div>
+
+          <div class="shap-disclaimer">
+            <svg class="disclaimer-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+            <span>SHAP values quantify feature contributions in this trained model. They reflect statistical feature weighting and do not establish direct causality.</span>
+          </div>
+        </div>
+
+        <!-- Chronological Historical Timeline -->
+        <div class="drawer-section">
+          <h4 class="section-title">Chronological Engagement History</h4>
+          <p class="section-desc">Observed historical records for this employee leading up to the forecast</p>
+          
+          <div class="table-responsive mt-2">
+            <table class="data-table history-table">
+              <thead>
+                <tr>
+                  <th>Observation Date</th>
+                  <th>HI Level</th>
+                  <th>Workplace Survey Submitted</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody id="modal-history-tbody">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loading-text">Computing workforce analytics...</div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

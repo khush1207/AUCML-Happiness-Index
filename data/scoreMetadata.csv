@@ -1,0 +1,56 @@
+scoreId,name,factorId,factor,questionId,question
+5df0cbe8d8e67200048f1b09,Relationships,5df0cbe8d8e67200048f1b05,Managers,5df0cbe8d8e67200048f1b06,What is it like working with your direct manager?
+5df0cbe8d8e67200048f1b09,Relationships,5df0cbe8d8e67200048f1b05,Managers,5df0cbe8d8e67200048f1b07,My manager helps bring the best out of people
+5df0cbe8d8e67200048f1b09,Relationships,5df0cbe8d8e67200048f1b05,Managers,5df0cbe8d8e67200048f1b08,"When I ask my manager for help, he/she devotes time to help me"
+5df0cbe8d8e67200048f1b09,Relationships,5df0e70ad8e67200048f1c0c,Peers,5df0e70ad8e67200048f1c0d,I feel like I am part of a team
+5df0cbe8d8e67200048f1b09,Relationships,5df0e70ad8e67200048f1c0c,Peers,5df0e70ad8e67200048f1c0e,I can count on my co-workers to help out when needed
+5df0cbe8d8e67200048f1b09,Relationships,5df0e70ad8e67200048f1c0c,Peers,5df0e70ad8e67200048f1c0f,*|COMPANY_NAME|* is the kind of place where I could make friends.
+5df0cbe8d8e67200048f1b09,Relationships,5df0e70ad8e67200048f1c10,Confidence,5df0e70ad8e67200048f1c11,I trust that the people I work with are committed to do a good job
+5df0cbe8d8e67200048f1b09,Relationships,5df0e70ad8e67200048f1c10,Confidence,5df0e70ad8e67200048f1c12,I would rate my direct manager's management skills as:
+5df0cbe8d8e67200048f1b09,Relationships,5df0e70ad8e67200048f1c10,Confidence,5df0e70ad8e67200048f1c13,My confidence in the senior leadership team of *|COMPANY_NAME|* is:
+5dd6d642103b810004915e04,Intrinsic Motivation,5dd6d642103b810004915dfb,Autonomy,5dd6d642103b810004915dfc,I rate the freedom that I have to decide how to do my work as:
+5dd6d642103b810004915e04,Intrinsic Motivation,5dd6d642103b810004915dfb,Autonomy,5dd6d642103b810004915dfd,I'm involved in decisions that affect my work
+5dd6d642103b810004915e04,Intrinsic Motivation,5dd6d642103b810004915dfb,Autonomy,5dd6d642103b810004915dfe,I feel that I'm in control when it comes to the work I need to accomplish
+5dd6d642103b810004915e04,Intrinsic Motivation,5dd6d642103b810004915dff,Mastery,5dd6d642103b810004915e00,I see how I can advance in my career at *|COMPANY_NAME|*
+5dd6d642103b810004915e04,Intrinsic Motivation,5dd6d642103b810004915dff,Mastery,5dd6d642103b810004915e01,My job at *|COMPANY_NAME|* enables me to learn and develop new skills
+5dd6d642103b810004915e04,Intrinsic Motivation,5dd6d642103b810004915dff,Mastery,5dd6d642103b810004915e02,My manager (or someone in management) encourages and supports my development
+5dd6d642103b810004915e04,Intrinsic Motivation,5dd6d642103b810004915dff,Mastery,5dd6d642103b810004915e03,I would rate the way *|COMPANY_NAME|* uses my strengths and abilities as:
+5dd6d642103b810004915e04,Intrinsic Motivation,5dd6d7f3103b810004915e1f,Purpose,5dd6d7f3103b810004915e20,Do you feel that your work at *|COMPANY_NAME|* serves a purpose?
+5dd6d642103b810004915e04,Intrinsic Motivation,5dd6d7f3103b810004915e1f,Purpose,5dd6d7f3103b810004915e21,I would rate how proud of my work and how is meaningful to me as:
+5dd6d642103b810004915e04,Intrinsic Motivation,5dd6d7f3103b810004915e1f,Purpose,5dd6d7f3103b810004915e22,I see how my work contributes to a positive outcome for *|COMPANY_NAME|*:
+5de6f4cf0544fa000440c1a7,Feedback,5de6f4cf0544fa000440c19b,Freedom of Opinion,5de6f4cf0544fa000440c19c,"On a scale of 1 to 10, how comfortable do you feel giving upwards feedback to your manager?"
+5de6f4cf0544fa000440c1a7,Feedback,5de6f4cf0544fa000440c19b,Freedom of Opinion,5de6f4cf0544fa000440c19d,I feel like I can voice my opinion regarding *|COMPANY_NAME|*:
+5de6f4cf0544fa000440c1a7,Feedback,5de6f4cf0544fa000440c19b,Freedom of Opinion,5de6f4cf0544fa000440c19e,"My teammates, welcome opinions different from their own."
+5de6f4cf0544fa000440c1a7,Feedback,5de6f4cf0544fa000440c19f,Quality & Frequency,5de6f4cf0544fa000440c1a0,*|COMPANY_NAME|* communicates in a clear and effective way us.
+5de6f4cf0544fa000440c1a7,Feedback,5de6f4cf0544fa000440c19f,Quality & Frequency,5de6f4cf0544fa000440c1a1,My manager communicates openly and honestly with me.
+5de6f4cf0544fa000440c1a7,Feedback,5de6f4cf0544fa000440c19f,Quality & Frequency,5de6f4cf0544fa000440c1a2,Which of the following best describes the amount of feedback you typically get regarding your work
+5de6f4cf0544fa000440c1a7,Feedback,5de6f4cf0544fa000440c1a3,Active Listening,5de6f4cf0544fa000440c1a4,*|COMPANY_NAME|* seem to valuate my opinions and suggestions.
+5de6f4cf0544fa000440c1a7,Feedback,5de6f4cf0544fa000440c1a3,Active Listening,5de6f4cf0544fa000440c1a5,My manager embraces my opinions
+5de6f4cf0544fa000440c1a7,Feedback,5de6f4cf0544fa000440c1a3,Active Listening,5de6f4cf0544fa000440c1a6,"From 1 to 10, how would you rate how your co-workers and peers welcome your opinions?"
+5ddefaf94695250004421819,Alignment,5ddefaf94695250004421815,Values & Ethics,5ddefaf94695250004421816,The values of *|COMPANY_NAME|* are aligned with the ones that I consider important to me.
+5ddefaf94695250004421819,Alignment,5ddefaf94695250004421815,Values & Ethics,5ddefaf94695250004421817,Our organizational values are reflected in every decision taken at *|COMPANY_NAME|*
+5ddefaf94695250004421819,Alignment,5ddefaf94695250004421815,Values & Ethics,5ddefaf94695250004421818,Does your manager demonstrate that employees are essential to the success of *|COMPANY_NAME|*?
+5ddefaf94695250004421819,Alignment,5ddefd5c4695250004421824,Goals & Role,5ddefd5c4695250004421825,How would you rate the job *|COMPANY_NAME|* does communicating the goals set by leadership?.
+5ddefaf94695250004421819,Alignment,5ddefd5c4695250004421824,Goals & Role,5ddefd5c4695250004421826,I understand how my work supports the goal of my team
+5ddefaf94695250004421819,Alignment,5ddefd5c4695250004421824,Goals & Role,5ddefd5c4695250004421827,"At work, I know what I’m expected to deliver"
+5ddefaf94695250004421819,Alignment,5ddefd5c4695250004421828,Trust & Vision,5ddefd5c4695250004421829,Do you believe that *|COMPANY_NAME|* is able to reach its objectives?.
+5ddefaf94695250004421819,Alignment,5ddefd5c4695250004421828,Trust & Vision,5ddefd5c469525000442182a,The vision and purpose of *|COMPANY_NAME|* inspires me.
+5ddefaf94695250004421819,Alignment,5ddefd5c4695250004421828,Trust & Vision,5ddefd5c469525000442182b,"I would rate the amount of resources, people and efforts that *|COMPANY_NAME|* invests to achieve its goals as:"
+5ddefaf94695250004421819,Alignment,5ddefd5c4695250004421828,Trust & Vision,5ddefd5c469525000442182c,The business goals and strategies set by senior leadership are taking *|COMPANY_NAME|* in the right direction.
+5bfff05de6caa5000429c544,Employee Net Promoter Score (eNPS).,5bfff05de6caa5000429c542,eNPS,5bfff05de6caa5000429c543,"On a scale from 1 to 10, how likely are you to recommend *|COMPANY_NAME|* as good place to work?"
+5dd6e4a49a5137000450ff1e,Wellbeing,5dd6e4a49a5137000450ff1a,Stress & Health,5dd6e4a49a5137000450ff1b,*|COMPANY_NAME|* shows a commitment to the wellbeing of employees
+5dd6e4a49a5137000450ff1e,Wellbeing,5dd6e4a49a5137000450ff1a,Stress & Health,5dd6e4a49a5137000450ff1c,My manager genuinely cares about my wellbeing
+5dd6e4a49a5137000450ff1e,Wellbeing,5dd6e4a49a5137000450ff1a,Stress & Health,5dd6e4a49a5137000450ff1d,"On a scale from 1 to 10, how would you rate the work-related stress?"
+5dd6e4a49a5137000450ff1e,Wellbeing,5dd7082c9a5137000450ffbd,Diversity & Equality,5dd7082c9a5137000450ffbe,People from all backgrounds are treated fairly at *|COMPANY_NAME|*
+5dd6e4a49a5137000450ff1e,Wellbeing,5dd7082c9a5137000450ffbd,Diversity & Equality,5dd7082c9a5137000450ffbf,My manager makes sure everyone feels included
+5dd6e4a49a5137000450ff1e,Wellbeing,5dd7082c9a5137000450ffbd,Diversity & Equality,5dd7082c9a5137000450ffc0,I feel included and respected within *|COMPANY_NAME|*.
+5dd6e4a49a5137000450ff1e,Wellbeing,5dd7082c9a5137000450ffc1,Environment,5dd7082c9a5137000450ffc2,My workplace environment is enjoyable and contributes positively to my job
+5dd6e4a49a5137000450ff1e,Wellbeing,5dd7082c9a5137000450ffc1,Environment,5dd7082c9a5137000450ffc3,Do you have the tools and resources you need to do your job?
+5dd6e4a49a5137000450ff1e,Wellbeing,5dd7082c9a5137000450ffc1,Environment,5dd7082c9a5137000450ffc4,I have all the information I need to make decisions
+5de5762f0d589c000456c2c4,Reward & Recognition,5de5762f0d589c000456c2c0,Compensation,5de5762f0d589c000456c2c1,"When I take in account my responsibilities, skills and experience I believe I am..."
+5de5762f0d589c000456c2c4,Reward & Recognition,5de5762f0d589c000456c2c0,Compensation,5de5762f0d589c000456c2c2,I can have well-informed and constructive conversations with my manager about pay
+5de5762f0d589c000456c2c4,Reward & Recognition,5de5762f0d589c000456c2c0,Compensation,5de5762f0d589c000456c2c3,I would rate the processes for determining pay in *|COMPANY_NAME|* as:
+5de5762f0d589c000456c2c4,Reward & Recognition,5de587aa0d589c000456c2fe,Recognition,5de587aa0d589c000456c2ff,"When I do great work, I know that it will be recognised"
+5de5762f0d589c000456c2c4,Reward & Recognition,5de587aa0d589c000456c2fe,Recognition,5de587aa0d589c000456c300,For *|COMPANY_NAME|* to celebrate our accomplishments and milestones is:
+5de5762f0d589c000456c2c4,Reward & Recognition,5de587aa0d589c000456c2fe,Recognition,5de587aa0d589c000456c301,*|COMPANY_NAME|* encourages us to give recognition to one another
+5de5762f0d589c000456c2c4,Reward & Recognition,5de587aa0d589c000456c302,Benefits,5de587aa0d589c000456c303,"On a scale from 0-10, how would you rate the benefits *|COMPANY_NAME|* offers?"
