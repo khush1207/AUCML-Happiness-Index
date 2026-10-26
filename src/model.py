@@ -16,7 +16,7 @@ DATA_DIR = BASE_DIR / "data"
 PROCESSED_DIR = DATA_DIR / "processed"
 MODEL_DIR = BASE_DIR / "models"
 
-COMBINED_FILE = PROCESSED_DIR / "combined_employee_engagement.csv"
+COMBINED_FILE = PROCESSED_DIR / "combined_employee_engagement.zip"
 MODEL_FILE = MODEL_DIR / "tuned_xgboost_no_calendar.ubj"
 
 SCORE_METADATA_FILE = DATA_DIR / "scoreMetadata.csv"
